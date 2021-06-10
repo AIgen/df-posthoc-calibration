@@ -1,2 +1,2 @@
-# df-posthoc-calibration
+# Distribution-free posthoc calibration 
 Posthoc calibration without assumptions
