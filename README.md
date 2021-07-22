@@ -38,6 +38,8 @@ The file `binary_assessment.py` contains four assessment metrics for calibration
 ![](logistic_regression.png?raw=true)
 ![](histogram_binning.png?raw=true)
 
+Further details and references for these plots can be found in the paper [3]. 
+
 ## License
 This repository is licensed under the terms of the [MIT non-commercial License](LICENSE).
 
