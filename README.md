@@ -32,8 +32,7 @@ hb.fit(pred_probs_calib, y_calib)
 lr_test = lr.predict_proba(x_test)[:,1]
 hb_test = hb.predict_proba(lr_test)
 ```
-
-The file `binary_assessment.py` contains four assessment metrics for calibration: reliability diagrams, validity_plots, ECE, and sharpness. Using this code, we can see that histogram binning improves upon the calibration of logistic regression. Some plots from `credit_default_example.ipynb` are reproduced below: 
+``hb_test`` contains the calibrated probabilities on the test data. The file `binary_assessment.py` contains four assessment metrics for calibration: reliability diagrams, validity_plots, ECE, and sharpness. Some plots from `credit_default_example.ipynb` are reproduced below: 
 
 ![](logistic_regression.png?raw=true)
 ![](histogram_binning.png?raw=true)
