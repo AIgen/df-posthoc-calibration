@@ -2,10 +2,10 @@ import numpy as np
 from utils import *
 
 class HB_binary(object):
-    def __init__(self):
+    def __init__(self, n_bins=15):
         ### Hyperparameters
         self.delta = 1e-10
-        self.n_bins = None
+        self.n_bins = n_bins
 
         ### Parameters of histogram binning that are to be learnt 
         self.bin_upper_edges = None
