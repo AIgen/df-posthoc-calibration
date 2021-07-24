@@ -35,8 +35,8 @@ hb_test = hb.predict_proba(lr_test)
 ``hb_test`` contains the calibrated probabilities on the test data. The file `binary_assessment.py` contains four assessment metrics for calibration: reliability diagrams, validity_plots, ECE, and sharpness. Some plots from `credit_default_example.ipynb` are reproduced below: 
 
 <div style="text-align: center;">
-  <img src="logistic_regression.png?raw=true" width="350" />
-  <img src="histogram_binning.png?raw=true" width="350" /> 
+  <img src="figs/logistic_regression.png?raw=true" width="350" />
+  <img src="figs/histogram_binning.png?raw=true" width="350" /> 
 </div>
 <!---![](logistic_regression.png?raw=true) ![](histogram_binning.png?raw=true)--->
 
