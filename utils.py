@@ -18,7 +18,8 @@ def get_uniform_mass_bins(probs, n_bins):
 
 def bin_points(scores, bin_edges):
     assert(bin_edges is not None), "Bins have not been defined"
-    assert(scores.shape[0] == scores.size), "scores should be a 1D vector"
+    scores = scores.squeeze()
+    assert(np.size(scores.shape) < 2), "scores should be a 1D vector or singleton"
     scores = np.reshape(scores, (scores.size, 1))
     bin_edges = np.reshape(bin_edges, (1, bin_edges.size))
     return np.sum(scores > bin_edges, axis=1)
