@@ -93,4 +93,4 @@ This repository is licensed under the terms of the [MIT non-commercial License](
 
 [5] [CIFAR10 dataset](https://www.cs.toronto.edu/~kriz/cifar.html)
 
-[6] [Focal loss repository] https://github.com/torrvision/focal_calibration
+[6] [Focal loss repository](https://github.com/torrvision/focal_calibration)
