@@ -4,6 +4,37 @@ Any probabilistic classification model can be provably posthoc calibrated, for a
 The simplest use case is to recalibrate an existing probabilistic classification model, called the base model. The base model can be trained using any library in any programming language. Our code is agnostic to the details of the model and works on top of the final class probabilities predicted by the model, which can simply be loaded from a file. This is also called the posthoc calibration setting. 
 
 
+## Top-label calibration
+The class `HB_toplabel` in `calibration.py` implements top-label histogram binning. To use this class, first load or compute the following two objects: 
+- `base_probs`: an `N X L` matrix (2D `numpy` array) of floating point numbers, storing the predicted scores for each of the `N` calibration points for each of the `L` classes, using an arbitrary base model
+- `true_labels`: an `N` length vector (1D `numpy` array) with values in `{1, 2, ..., L}`, storing the true labels for each of the `N` calibration points
+
+A histogram binning wrapper can be learnt around the base model using **3 lines of code**:
+```python
+from calibration import HB_toplabel
+hb = calibration.HB_toplabel(points_per_bin=50)
+hb.fit(base_probs, true_labels)
+```
+That's it, `hb` can now be used to make top-label calibrated predictions. Let the base model score matrix on some new (test) data be `base_probs_test`, a 2D `numpy` vector of floats, of size `N_test X L`. Then
+```python
+calibrated_probs_test = hb.predict_proba(base_probs_test)
+```
+gives the calibrated probabilities for the predicted classes (a 1D `numpy` vector of floats of length `N_test`). Note that the corresponding predicted classes are given by:
+```python
+predicted_class_test = np.argmax(base_probs_test, axis=1) + 1
+```
+Here the `+ 1` ensures that the final class predictions are in `{1, 2, ..., L}`.
+
+### Self-contained example with ResNet-50 on CIFAR10
+The file `cifar10_example.ipynb` documents an illustrative example for achieve top-label calibrated predictions on the CIFAR10 dataset [5]. First, a pretrained ResNet-50 model from the `focal_calibration` repository [6] was used to produce a base prediction matrix. The logits corresponding to these predictions are stored in `data/cifar10_resnet50/`. Along with these, the logits corresponding to the same model post temperature scaling are also stored. The file `cifar10_example.ipynb` loads these logits, computes the corresponding predicted probabilities, and top-label recalibrates them as illustrated above. The final top-label reliability diagram, and top-label ECE corresponding to the ResNet-50 model, temperature scaling model, and histogram binning model are reproduced below. 
+
+<div style="text-align: center;">
+  <img src="figs/cifar10_top_label.png?raw=true" width="700" /> 
+</div>
+
+The plots show that histogram binning improves the top-label calibration of the ResNet-50 model more than temperature scaling. Further details and references for these plots can be found in the paper [1]. The code used to make these plots and compute the ECE can be found in `assessment.py`
+
+
 ## Binary calibration
 Let ``base_probs`` be a 1-D numpy array of floats storing the predicted P(Y=1) values from a base model, and ``labels`` be a 1-D numpy array of 0s and 1s storing the true labels (both arrays should have matching length).  A histogram binning wrapper can be learnt around the base model using **3 lines of code**:
 ```python
@@ -54,3 +85,7 @@ This repository is licensed under the terms of the [MIT non-commercial License](
 [3] [Distribution-free binary classification: prediction sets, confidence intervals and calibration](https://arxiv.org/abs/2006.10564)
 
 [4] [Credit default dataset](https://archive.ics.uci.edu/ml/datasets/default+of+credit+card+clients)
+
+[5] [CIFAR10 dataset](https://www.cs.toronto.edu/~kriz/cifar.html)
+
+[6] [Focal loss repository] https://github.com/torrvision/focal_calibration
