@@ -32,7 +32,7 @@ The file `cifar10_example.ipynb` documents an illustrative example for achieve t
   <img src="figs/cifar10_top_label.png?raw=true" width="700" /> 
 </div>
 
-The plots show that histogram binning improves the top-label calibration of the ResNet-50 model more than temperature scaling. Further details and references for these plots can be found in the paper [1]. The code used to make these plots and compute the ECE can be found in `assessment.py`
+The plots show that histogram binning improves the top-label calibration of the ResNet-50 model more than temperature scaling. Further details and references for these plots can be found in the paper [1]. The code used to make these plots and compute the ECE can be found in `assessment.py`.
 
 
 ## Binary calibration
@@ -68,7 +68,7 @@ lr_test = lr.predict_proba(x_test)[:,1]
 hb_test = hb.predict_proba(lr_test)
 ```
 
-The `numpy` array ``hb_test`` contains the calibrated probabilities on the test data. The file `binary_assessment.py` contains four assessment metrics for calibration: reliability diagrams, validity_plots, ECE, and sharpness. Some plots from `credit_default_example.ipynb` are reproduced below: 
+The `numpy` array `hb_test` contains the calibrated probabilities on the test data. The file `binary_assessment.py` contains four assessment metrics for calibration: reliability diagrams, validity_plots, ECE, and sharpness. Some plots from `credit_default_example.ipynb` are reproduced below: 
 
 <div style="text-align: center;">
   <img src="figs/logistic_regression.png?raw=true" width="350" />
@@ -76,7 +76,7 @@ The `numpy` array ``hb_test`` contains the calibrated probabilities on the test 
 </div>
 <!---![](logistic_regression.png?raw=true) ![](histogram_binning.png?raw=true)--->
 
-The plots show that histogram binning improves the calibration of logistic regression. Further details and references for these plots can be found in the paper [1]. 
+The plots show that histogram binning improves the calibration of logistic regression. Further details and references for these plots can be found in the paper [2]. 
 
 ## License
 This repository is licensed under the terms of the [MIT non-commercial License](LICENSE).
