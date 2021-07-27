@@ -1,5 +1,5 @@
 # Distribution-free, model-agnostic, posthoc calibration 
-Any probabilistic classification model can be provably posthoc calibrated, for arbitrarily distributed data [1,2,3]. This repository contains an easy-to-use python library that achieves this goal for binary classification. *Code for multiclass classification will be released shortly.*
+Any probabilistic classification model can be provably posthoc calibrated, for arbitrarily distributed data [3]. This repository contains an easy-to-use python library that achieves this goal for top-label [1] and binary classification [2]. *Code for class-wise classification will be released shortly.*
 
 The simplest use case is to recalibrate an existing probabilistic classification model, called the base model. The base model can be trained using any library in any programming language. Our code is agnostic to the details of the model and works on top of the final class probabilities predicted by the model, which can simply be loaded from a file. This is also called the posthoc calibration setting. 
 
@@ -36,17 +36,21 @@ The plots show that histogram binning improves the top-label calibration of the 
 
 
 ## Binary calibration
-Let ``base_probs`` be a 1-D numpy array of floats storing the predicted P(Y=1) values from a base model, and ``labels`` be a 1-D numpy array of 0s and 1s storing the true labels (both arrays should have matching length).  A histogram binning wrapper can be learnt around the base model using **3 lines of code**:
+The class `HB_binary` in `calibration.py` implements binary histogram binning. To use this class, first load or compute the following two objects: 
+- `base_probs`: an `N` length vector (1D `numpy` array) of floating point numbers, storing the predicted scores for each of the `N` calibration points, using an arbitrary base model
+- `true_labels`: an `N` length vector (1D `numpy` array) of 0s and 1s, storing the true labels for each of the `N` calibration points
+
+A histogram binning wrapper can be learnt around the base model using **3 lines of code**:
 ```python
 from calibration import HB_binary
 hb = HB_binary(n_bins=15)
 hb.fit(base_probs, true_labels)
 ```
-That's it, histogram binning can now be used to make calibrated predictions. Let the base model probabilities on some new data be ``base_probs_test`` (a 1-D numpy vector of floats). Then
+That's it, histogram binning can now be used to make calibrated predictions. Let the base model probabilities on some new data be `base_probs_test` (a 1D `numpy` vector of floats). Then
 ```python
 calibrated_probs_test = hb.predict_proba(base_probs_test)
 ```
-gives the calibrated probabilities (a 1-D numpy vector of floats).
+gives the calibrated probabilities (a 1D `numpy` vector of floats).
 
 ### Self-contained example with logistic regression
 The file `credit_default_example.ipynb` documents an illustrative example for learning and recalibrating a logistic regression classifier on the credit default dataset [4]. For the full pipeline, the dataset is first split into three parts (training, calibration, and test). The salient lines of code (paraphrased) are:
@@ -63,7 +67,8 @@ hb.fit(pred_probs_calib, y_calib)
 lr_test = lr.predict_proba(x_test)[:,1]
 hb_test = hb.predict_proba(lr_test)
 ```
-``hb_test`` contains the calibrated probabilities on the test data. The file `binary_assessment.py` contains four assessment metrics for calibration: reliability diagrams, validity_plots, ECE, and sharpness. Some plots from `credit_default_example.ipynb` are reproduced below: 
+
+The `numpy` array ``hb_test`` contains the calibrated probabilities on the test data. The file `binary_assessment.py` contains four assessment metrics for calibration: reliability diagrams, validity_plots, ECE, and sharpness. Some plots from `credit_default_example.ipynb` are reproduced below: 
 
 <div style="text-align: center;">
   <img src="figs/logistic_regression.png?raw=true" width="350" />
