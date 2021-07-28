@@ -76,7 +76,7 @@ The `numpy` array `hb_test` contains the calibrated probabilities on the test da
 </div>
 <!---![](logistic_regression.png?raw=true) ![](histogram_binning.png?raw=true)--->
 
-The plots show that histogram binning improves the calibration of logistic regression. Further details and references for these plots can be found in the paper [[2]](https://arxiv.org/abs/2105.04656). 
+The plots show that histogram binning improves the calibration of logistic regression. Further details and references for these plots can be found in the paper [[2]](https://arxiv.org/abs/2105.04656). The paper also contains extensive experimentation with additional datasets and deepnet architectures. 
 
 ## License
 This repository is licensed under the terms of the [MIT non-commercial License](LICENSE).
