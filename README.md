@@ -35,10 +35,25 @@ The file `example_cifar10.ipynb` documents an illustrative example for achieve t
 
 The plots show that histogram binning improves the top-label calibration of the ResNet-50 model more than temperature scaling. Further details and references for these plots can be found in the paper [1]. The code used to make these plots and compute the ECE can be found in `assessment.py`.
 
+### Assessment tools
+The functions `toplabel_reliability_diagram` and `toplabel_ece` in `assessment.py` implement top-label reliability diagrams and top-lable ECE respectively (these are different from confidence reliability diagrams or confidence ECE propoosed by Guo et al. [7]; see the paper [1] for descriptions). 
+
+The function `toplabel_ece` has the following required parameters: 
+- `y`: an `N` length vector (1D `numpy` array) with values in `{1, 2, ..., L}`, storing the true labels for `N` points
+- `pred_prob`: an `N X L` matrix (2D `numpy` array) of floating point numbers, storing the predicted scores for each of the `N` points for each of the `L` classes
+
+Optionally, `pred_prob` can be an `N` length vector (1D `numpy` array) of floating point numbers, storing the predicted scores for only the predicted class (top-labels). In this case, an additional third parameter `pred_class` must be passed, which is an `N` length vector (1D `numpy` array) with values in `{1, 2, ..., L}`, storing the predicted class labels. The number of bins to be used for ECE estimation can be passed with the parameter `n_bins` (default is 15). 
+
+*Note: Fixed-width binning is used for plotting reliability diagrams. Adaptive binning is used for ECE estimation. However, if the classifier is sufficiently discrete, binning is not used for ECE estimation and the `n_bins` parameter is redundant.*
+
+The function `toplabel_ece` takes the same parameters as above, along with some additional plotting parameters: 
+- `ax`: a `matplotlib` axis object, for example the output of `fig, ax = matplotlib.pyplot.subplots()`
+- `color` (optional): a [`matplotlib` color](https://matplotlib.org/3.1.1/tutorials/colors/colors.html)
+
 
 ## Binary calibration
 The class `HB_binary` in `calibration.py` implements binary histogram binning. To use this class, first load or compute the following two objects: 
-- `base_probs`: an `N` length vector (1D `numpy` array) of floating point numbers, storing the predicted scores for each of the `N` calibration points, using an arbitrary base model
+- `base_probs`: an `N` length vector (1D `numpy` array) of floating point numbers, storing the predicted `P(Y=1)` values for each of the `N` calibration points, using an arbitrary base model
 - `true_labels`: an `N` length vector (1D `numpy` array) of 0s and 1s, storing the true labels for each of the `N` calibration points
 
 A histogram binning wrapper can be learnt around the base model using **3 lines of code**:
@@ -79,6 +94,19 @@ The `numpy` array `hb_test` contains the calibrated probabilities on the test da
 
 The plots show that histogram binning improves the calibration of logistic regression. Further details and references for these plots can be found in the paper [2]. 
 
+### Assessment tools
+The functions `ece`, `sharpness`, `reliability_diagram`, and `validity_plot` are implemented in `assessment.py`. Each of the following 3 parameters:
+- `y`: an `N` length vector (1D `numpy` array) with values in `{0,1}`, storing the true labels for `N` points
+- `pred_prob`: an `N` length vector (1D `numpy` array) of floating point numbers, storing the predicted `P(Y=1)` values for each of the `N` points
+- `n_bins` (optional): number of bins to be used (default is 10 for `reliability_diagram` and 15 for the other functions)
+- `quiet` (optional): print diagnostic output if set to `True` (default: `False`)
+
+The plotting functions `reliability_diagram`, and `validity_plot` take additional plotting parameters: 
+- `ax`: a `matplotlib` axis object, for example the output of `fig, ax = matplotlib.pyplot.subplots()`
+- `color` (optional): a [`matplotlib` color](https://matplotlib.org/3.1.1/tutorials/colors/colors.html)
+
+All methods use adaptive binning for assessing calibraiton. This behavior can be changed for `reliability_diagram` using the optional `fixed` parameter, which can be set to `True` to use fixed-width bins.
+
 ## License
 This repository is licensed under the terms of the [MIT non-commercial License](LICENSE).
 
@@ -95,3 +123,5 @@ This repository is licensed under the terms of the [MIT non-commercial License](
 [5] [CIFAR10 dataset](https://www.cs.toronto.edu/~kriz/cifar.html)
 
 [6] [Focal loss repository](https://github.com/torrvision/focal_calibration)
+
+[7] [On calibration of modern neural networks](https://arxiv.org/abs/1706.04599)
