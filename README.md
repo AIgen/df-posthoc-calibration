@@ -33,7 +33,7 @@ The file `example_cifar10.ipynb` documents an illustrative example for achieve t
   <img src="figs/cifar10_top_label.png?raw=true" width="700" /> 
 </div>
 
-The plots show that histogram binning improves the top-label calibration of the ResNet-50 model more than temperature scaling. Further details and references for these plots can be found in the paper [[1]](https://arxiv.org/abs/2107.08353). The code used to make these plots and compute the ECE can be found in `assessment.py` ([documentation here](docs/toplabel_assessment.md)).
+The plots show that histogram binning improves the top-label calibration of the ResNet-50 model more than temperature scaling. Further details and references for these plots can be found in the paper [[1]](https://arxiv.org/abs/2107.08353). The paper also contains extensive experimentation with additional datasets and deepnet architectures. The code used to make these plots and compute the ECE can be found in `assessment.py` ([documentation here](docs/toplabel_assessment.md)).
 
 ## Binary calibration
 The class `HB_binary` in `calibration.py` implements binary histogram binning. To use this class, first load or compute the following two objects: 
@@ -76,7 +76,7 @@ The `numpy` array `hb_test` contains the calibrated probabilities on the test da
 </div>
 <!---![](logistic_regression.png?raw=true) ![](histogram_binning.png?raw=true)--->
 
-The plots show that histogram binning improves the calibration of logistic regression. Further details and references for these plots can be found in the paper [[2]](https://arxiv.org/abs/2105.04656). The paper also contains extensive experimentation with additional datasets and deepnet architectures. 
+The plots show that histogram binning improves the calibration of logistic regression. Further details and references for these plots can be found in the paper [[2]](https://arxiv.org/abs/2105.04656). 
 
 ## License
 This repository is licensed under the terms of the [MIT non-commercial License](LICENSE).
