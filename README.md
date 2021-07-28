@@ -6,7 +6,7 @@ The simplest use case is to recalibrate an existing probabilistic classification
 The library was developed on a UNIX system using `Python 3.9.1`, but it should work with other versions of Python3. The only other dependency is the library `numpy`. Running the illustrative examples (`.ipynb` files) requires Jupyter Notebook and two additional libraries, `scikit-learn` and `matplotlib`.
 
 ## Top-label calibration
-The class `HB_toplabel` in `calibration.py` implements top-label histogram binning. To use this class, first load or compute the following two objects: 
+Top-label calibration is a practically useful adaptation of confidence calibration [[7]](https://arxiv.org/abs/1706.04599); see the paper [[1]](https://arxiv.org/abs/2107.08353) for further details. The class `HB_toplabel` in `calibration.py` implements top-label histogram binning. To use this class, first load or compute the following two objects: 
 - `base_probs`: an `N X L` matrix (2D `numpy` array) of floating point numbers, storing the predicted scores for each of the `N` calibration points for each of the `L` classes, using an arbitrary base model
 - `true_labels`: an `N` length vector (1D `numpy` array) with values in `{1, 2, ..., L}`, storing the true labels for each of the `N` calibration points
 
@@ -94,3 +94,5 @@ This repository is licensed under the terms of the [MIT non-commercial License](
 [5] [CIFAR10 dataset](https://www.cs.toronto.edu/~kriz/cifar.html)
 
 [6] [Focal loss repository](https://github.com/torrvision/focal_calibration)
+
+[7] [On Calibration of Modern Neural Networks](https://arxiv.org/abs/1706.04599)
