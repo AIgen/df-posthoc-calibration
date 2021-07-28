@@ -9,5 +9,5 @@ Optionally, `pred_prob` can be an `N` length vector (1D `numpy` array) of floati
 *Note: Fixed-width binning is used for plotting reliability diagrams. Adaptive binning is used for ECE estimation. However, if the classifier is sufficiently discrete, binning is not used for ECE estimation and the `n_bins` parameter is redundant.*
 
 The function `toplabel_ece` takes the same parameters as above, along with some additional plotting parameters: 
-- `ax`: a `matplotlib` axis object, for example the output of `fig, ax = matplotlib.pyplot.subplots()`
+- `ax`: a `matplotlib` axis object, for example the output of `matplotlib.pyplot.subplots()`
 - `color` (optional): a [`matplotlib` color](https://matplotlib.org/3.1.1/tutorials/colors/colors.html)
