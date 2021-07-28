@@ -27,7 +27,7 @@ predicted_class_test = np.argmax(base_probs_test, axis=1) + 1
 Here the `+ 1` ensures that the final class predictions are in `{1, 2, ..., L}`.
 
 ### Self-contained example with ResNet-50 on CIFAR10
-The file `cifar10_example.ipynb` documents an illustrative example for achieve top-label calibrated predictions on the CIFAR10 dataset [5]. First, a pretrained ResNet-50 model from the `focal_calibration` repository [6] was used to produce a base prediction matrix. The logits corresponding to these predictions are stored in `data/cifar10_resnet50/`. Along with these, the logits corresponding to the same model post temperature scaling are also stored. The file `cifar10_example.ipynb` loads these logits, computes the corresponding predicted probabilities, and top-label recalibrates them as illustrated above. The final top-label reliability diagram, and top-label ECE corresponding to the ResNet-50 model, temperature scaling model, and histogram binning model are reproduced below. 
+The file `example_cifar10.ipynb` documents an illustrative example for achieve top-label calibrated predictions on the CIFAR10 dataset [5]. First, a pretrained ResNet-50 model from the `focal_calibration` repository [6] was used to produce a base prediction matrix. The logits corresponding to these predictions are stored in `data/cifar10_resnet50/`. Along with these, the logits corresponding to the same model post temperature scaling are also stored. The file `example_cifar10.ipynb` loads these logits, computes the corresponding predicted probabilities, and top-label recalibrates them as illustrated above. The final top-label reliability diagram, and top-label ECE corresponding to the ResNet-50 model, temperature scaling model, and histogram binning model are reproduced below. 
 
 <div style="text-align: center;">
   <img src="figs/cifar10_top_label.png?raw=true" width="700" /> 
@@ -54,7 +54,7 @@ calibrated_probs_test = hb.predict_proba(base_probs_test)
 gives the calibrated probabilities (a 1D `numpy` vector of floats).
 
 ### Self-contained example with logistic regression
-The file `credit_default_example.ipynb` documents an illustrative example for learning and recalibrating a logistic regression classifier on the credit default dataset [4]. For the full pipeline, the dataset is first split into three parts (training, calibration, and test). The salient lines of code (paraphrased) are:
+The file `example_credit.ipynb` documents an illustrative example for learning and recalibrating a logistic regression classifier on the credit default dataset [4]. For the full pipeline, the dataset is first split into three parts (training, calibration, and test). The salient lines of code (paraphrased) are:
 
 ```python
 x_train, y_train, x_calib, y_calib, x_test, y_test = load_data_and_create_splits()
@@ -69,7 +69,7 @@ lr_test = lr.predict_proba(x_test)[:,1]
 hb_test = hb.predict_proba(lr_test)
 ```
 
-The `numpy` array `hb_test` contains the calibrated probabilities on the test data. The file `binary_assessment.py` contains four assessment metrics for calibration: reliability diagrams, validity_plots, ECE, and sharpness. Some plots from `credit_default_example.ipynb` are reproduced below: 
+The `numpy` array `hb_test` contains the calibrated probabilities on the test data. The file `binary_assessment.py` contains four assessment metrics for calibration: reliability diagrams, validity_plots, ECE, and sharpness. Some plots from `example_credit.ipynb` are reproduced below: 
 
 <div style="text-align: center;">
   <img src="figs/logistic_regression.png?raw=true" width="350" />
