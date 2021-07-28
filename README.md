@@ -1,5 +1,5 @@
 # Distribution-free, model-agnostic, posthoc calibration 
-Any probabilistic classification model can be provably posthoc calibrated, for arbitrarily distributed data [3]. This repository contains an easy-to-use, low-dependency, python library that achieves this goal for multiclass [top-label calibration](#Top-label-calibration) [1] and binary calibration [2]. *Code for class-wise calibration will be released shortly.*
+Any probabilistic classification model can be provably posthoc calibrated, for arbitrarily distributed data [[3]](https://arxiv.org/abs/2006.10564). This repository contains an easy-to-use, low-dependency, python library that achieves this goal for multiclass [top-label calibration](#Top-label-calibration) [[1]](https://arxiv.org/abs/2107.08353) and [binary calibration](binary-calibration) [[2]](https://arxiv.org/abs/2105.04656). *Code for class-wise calibration will be released shortly.*
 
 The simplest use case is to recalibrate an existing probabilistic classification model, called the base model. The base model can be trained using any library in any programming language. Our code is agnostic to the details of the model and works on top of the final class probabilities predicted by the model, which can simply be loaded from a file. This is also called the posthoc calibration setting. 
 
@@ -27,13 +27,13 @@ predicted_class_test = np.argmax(base_probs_test, axis=1) + 1
 Here the `+ 1` ensures that the final class predictions are in `{1, 2, ..., L}`.
 
 ### Self-contained example with ResNet-50 on CIFAR10
-The file `example_cifar10.ipynb` documents an illustrative example for achieve top-label calibrated predictions on the CIFAR10 dataset [5]. First, a pretrained ResNet-50 model from the `focal_calibration` repository [6] was used to produce a base prediction matrix. The logits corresponding to these predictions are stored in `data/cifar10_resnet50/`. Along with these, the logits corresponding to the same model post temperature scaling are also stored. The file `example_cifar10.ipynb` loads these logits, computes the corresponding predicted probabilities, and top-label recalibrates them as illustrated above. The final top-label reliability diagram, and top-label ECE corresponding to the ResNet-50 model, temperature scaling model, and histogram binning model are reproduced below. 
+The file `example_cifar10.ipynb` documents an illustrative example for achieve top-label calibrated predictions on the CIFAR10 dataset [[5]](https://www.cs.toronto.edu/~kriz/cifar.html). First, a pretrained ResNet-50 model from the `focal_calibration` repository [[6]](https://github.com/torrvision/focal_calibration) was used to produce a base prediction matrix. The logits corresponding to these predictions are stored in `data/cifar10_resnet50/`. Along with these, the logits corresponding to the same model post temperature scaling are also stored. The file `example_cifar10.ipynb` loads these logits, computes the corresponding predicted probabilities, and top-label recalibrates them as illustrated above. The final top-label reliability diagram, and top-label ECE corresponding to the ResNet-50 model, temperature scaling model, and histogram binning model are reproduced below. 
 
 <div style="text-align: center;">
   <img src="figs/cifar10_top_label.png?raw=true" width="700" /> 
 </div>
 
-The plots show that histogram binning improves the top-label calibration of the ResNet-50 model more than temperature scaling. Further details and references for these plots can be found in the paper [1]. The code used to make these plots and compute the ECE can be found in `assessment.py` ([documentation here](docs/toplabel_assessment.md)).
+The plots show that histogram binning improves the top-label calibration of the ResNet-50 model more than temperature scaling. Further details and references for these plots can be found in the paper [[1]](https://arxiv.org/abs/2107.08353). The code used to make these plots and compute the ECE can be found in `assessment.py` ([documentation here](docs/toplabel_assessment.md)).
 
 ## Binary calibration
 The class `HB_binary` in `calibration.py` implements binary histogram binning. To use this class, first load or compute the following two objects: 
@@ -53,7 +53,7 @@ calibrated_probs_test = hb.predict_proba(base_probs_test)
 gives the calibrated probabilities (a 1D `numpy` vector of floats).
 
 ### Self-contained example with logistic regression
-The file `example_credit.ipynb` documents an illustrative example for learning and recalibrating a logistic regression classifier on the credit default dataset [4]. For the full pipeline, the dataset is first split into three parts (training, calibration, and test). The salient lines of code (paraphrased) are:
+The file `example_credit.ipynb` documents an illustrative example for learning and recalibrating a logistic regression classifier on the credit default dataset [[4]](https://archive.ics.uci.edu/ml/datasets/default+of+credit+card+clients). For the full pipeline, the dataset is first split into three parts (training, calibration, and test). The salient lines of code (paraphrased) are:
 
 ```python
 x_train, y_train, x_calib, y_calib, x_test, y_test = load_data_and_create_splits()
@@ -76,7 +76,7 @@ The `numpy` array `hb_test` contains the calibrated probabilities on the test da
 </div>
 <!---![](logistic_regression.png?raw=true) ![](histogram_binning.png?raw=true)--->
 
-The plots show that histogram binning improves the calibration of logistic regression. Further details and references for these plots can be found in the paper [2]. 
+The plots show that histogram binning improves the calibration of logistic regression. Further details and references for these plots can be found in the paper [[2]](https://arxiv.org/abs/2105.04656). 
 
 ## License
 This repository is licensed under the terms of the [MIT non-commercial License](LICENSE).
@@ -94,5 +94,3 @@ This repository is licensed under the terms of the [MIT non-commercial License](
 [5] [CIFAR10 dataset](https://www.cs.toronto.edu/~kriz/cifar.html)
 
 [6] [Focal loss repository](https://github.com/torrvision/focal_calibration)
-
-[7] [On calibration of modern neural networks](https://arxiv.org/abs/1706.04599)
