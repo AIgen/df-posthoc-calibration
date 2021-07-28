@@ -1,8 +1,9 @@
 # Distribution-free, model-agnostic, posthoc calibration 
-Any probabilistic classification model can be provably posthoc calibrated, for arbitrarily distributed data [3]. This repository contains an easy-to-use python library that achieves this goal for multiclass top-label calibration [1] and binary calibration [2]. *Code for class-wise calibration will be released shortly.*
+Any probabilistic classification model can be provably posthoc calibrated, for arbitrarily distributed data [3]. This repository contains an easy-to-use, low-dependency, python library that achieves this goal for multiclass top-label calibration [1] and binary calibration [2]. *Code for class-wise calibration will be released shortly.*
 
 The simplest use case is to recalibrate an existing probabilistic classification model, called the base model. The base model can be trained using any library in any programming language. Our code is agnostic to the details of the model and works on top of the final class probabilities predicted by the model, which can simply be loaded from a file. This is also called the posthoc calibration setting. 
 
+The library was developed on a UNIX system using `Python 3.9.1`, but it should work with other versions of Python3. The only other dependency is the library `numpy`. Running the illustrative examples (`.ipynb` files) requires Jupyter Notebook and two additional libraries, `scikit-learn` and `matplotlib`.
 
 ## Top-label calibration
 The class `HB_toplabel` in `calibration.py` implements top-label histogram binning. To use this class, first load or compute the following two objects: 
@@ -46,7 +47,7 @@ from calibration import HB_binary
 hb = HB_binary(n_bins=15)
 hb.fit(base_probs, true_labels)
 ```
-That's it, histogram binning can now be used to make calibrated predictions. Let the base model probabilities on some new data be `base_probs_test` (a 1D `numpy` vector of floats). Then
+That's it, `hb` can now be used to make calibrated predictions. Let the base model probabilities on some new data be `base_probs_test` (a 1D `numpy` vector of floats). Then
 ```python
 calibrated_probs_test = hb.predict_proba(base_probs_test)
 ```
