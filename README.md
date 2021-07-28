@@ -1,5 +1,5 @@
 # Distribution-free, model-agnostic, posthoc calibration 
-Any probabilistic classification model can be provably posthoc calibrated, for arbitrarily distributed data [3]. This repository contains an easy-to-use, low-dependency, python library that achieves this goal for multiclass top-label calibration [1] and binary calibration [2]. *Code for class-wise calibration will be released shortly.*
+Any probabilistic classification model can be provably posthoc calibrated, for arbitrarily distributed data [3]. This repository contains an easy-to-use, low-dependency, python library that achieves this goal for multiclass [top-label calibration](#Top-label-calibration) [1] and binary calibration [2]. *Code for class-wise calibration will be released shortly.*
 
 The simplest use case is to recalibrate an existing probabilistic classification model, called the base model. The base model can be trained using any library in any programming language. Our code is agnostic to the details of the model and works on top of the final class probabilities predicted by the model, which can simply be loaded from a file. This is also called the posthoc calibration setting. 
 
