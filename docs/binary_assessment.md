@@ -5,7 +5,7 @@ The functions `ece`, `sharpness`, `reliability_diagram`, and `validity_plot` are
 - `quiet` (optional): print diagnostic output if set to `True` (default: `False`)
 
 The plotting functions `reliability_diagram`, and `validity_plot` take additional plotting parameters: 
-- `ax`: a `matplotlib` axis object, for example the output of `fig, ax = matplotlib.pyplot.subplots()`
+- `ax`: a `matplotlib` axis object, for example the output of `matplotlib.pyplot.subplots()`
 - `color` (optional): a [`matplotlib` color](https://matplotlib.org/3.1.1/tutorials/colors/colors.html)
 
 All methods use adaptive binning for assessing calibraiton. This behavior can be changed for `reliability_diagram` using the optional `fixed` parameter, which can be set to `True` to use fixed-width bins.
