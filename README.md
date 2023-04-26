@@ -81,6 +81,9 @@ The plots show that histogram binning improves the calibration of logistic regre
 ## License
 This repository is licensed under the terms of the [MIT non-commercial License](LICENSE).
 
+## Acknowedgement
+If you use any code from this repository, please acknowledge it by referring to the github page and/or citing relevant papers [1, 2, 3]. 
+
 ## References
 
 [1] [Top-label calibration](https://arxiv.org/abs/2107.08353)
