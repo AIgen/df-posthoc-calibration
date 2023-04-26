@@ -1,3 +1,5 @@
+# Instructions for use
+
 This repository contains IPython notebooks to reproduce all results from the paper "Online Platt Scaling with Calibeating". The following table identifies each figure from the paper with the corresponding notebook to execute for reproducing that figure. 
 
 | Figure  | Relevant files |
@@ -14,6 +16,10 @@ To reproduce these experiments using fewer cores, go to the corresponding notebo
 
 The datasets have been packaged with the repository and need not be downloaded. On running these notebooks, results and figures will be stored in the folders with prefix `results_`. Results will be stored in subfolders with suffix `_data`, and figures will be stored in subfolders with suffix `_figures`. 
 
+### Standalone implementation of online Platt/beta scaling with calibeating
+
 Standalone implementations of the methods developed in the paper -- OPS, OBS, and their tracking/hedging versions -- are not (yet) directly interfaced. Code for OPS/OBS can be extraced from the notebook `calibration.py`. Code for tracking/hedging can be extracted from `sec_4_experiments_core.ipynb`. If you are interested in contributing standalone versions, please contact me. 
+
+### Acknowledgement
 
 If you use any code from this repository, please acknowledge it. In academic papers, please cite "Online Platt Scaling with Calibeating". 
