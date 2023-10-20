@@ -13,7 +13,7 @@ Top-label calibration is a practically useful adaptation of confidence calibrati
 A histogram binning wrapper can be learnt around the base model using **3 lines of code**:
 ```python
 from calibration import HB_toplabel
-hb = calibration.HB_toplabel(points_per_bin=50)
+hb = HB_toplabel(points_per_bin=50)
 hb.fit(base_probs, true_labels)
 ```
 That's it, `hb` can now be used to make top-label calibrated predictions. Let the base model score matrix on some new (test) data be `base_probs_test`, a 2D `numpy` vector of floats, of size `N_test X L`. Then
